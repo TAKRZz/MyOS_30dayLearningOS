@@ -59,3 +59,17 @@ DS —— data segment	  数据段寄存器
 FS —— segment part2	无名
 
 GS —— segment part3	无名
+
+内存 memory 
+
+**[ ]**  表示内存地址 BYTE WORD DWORD， 可以使用BX、BP、SI、DI指代地址。
+
+**MOV** 指令 两操作数的 *位数* 必须相同
+
+**CMP** compare  **JE** 条件跳转 *jump if equal*    **fin**   标号 *finish*
+
+**INT**  *interrupt* 中断机制  **BIOS** 主板ROM中  *basic input output system* 
+
+**HLT** 让CPU待机 *halt* 
+
+*0x00007c00-0x00007dff* ： 启动区的装载地址  // IBM 规定
