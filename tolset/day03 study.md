@@ -19,7 +19,7 @@ MOV		AX,0x0820
 
 **JC** jump if carry(进位标志)  FLACS.CF  
 
-INT 0x02——读盘  0x03——写盘 0x04——校验 0x0c——寻道  
+INT 0x02——读盘  0x03——写盘 0x04——校验 0x0c——寻道  0x13——系统复位
 
 CH  CL DH DL
 
@@ -69,6 +69,40 @@ retry:
 		JMP		retry
 ~~~
 
-**JNC** *jump if not carry* 
+**JNC** *jump if not carry* 进位标志是0则跳转
 
-JAE
+**JAE** *jump if above or equal*  大于等于跳转
+
+~~~
+MOV		AX,0x0820
+		MOV		ES,AX
+		MOV		CH,0			; シリンダ0
+		MOV		DH,0			; ヘッド0
+		MOV		CL,2			; セクタ2
+readloop:
+		MOV		SI,0			; 失敗回数を数えるレジスタ
+retry:
+		MOV		AH,0x02			; AH=0x02 : ディスク読み込み
+		MOV		AL,1			; 1セクタ
+		MOV		BX,0
+		MOV		DL,0x00			; Aドライブ
+		INT		0x13			; ディスクBIOS呼び出し
+		JNC		next			; エラーがおきなければnextへ
+		ADD		SI,1			; SIに1を足す
+		CMP		SI,5			; SIと5を比較
+		JAE		error			; SI >= 5 だったらerrorへ
+		MOV		AH,0x00
+		MOV		DL,0x00			; Aドライブ
+		INT		0x13			; ドライブのリセット
+		JMP		retry
+next:
+		MOV		AX,ES			
+		ADD		AX,0x0020        ; アドレスを0x200進める
+		MOV		ES,AX			; ADD ES,0x020 という命令がないのでこうしている
+		ADD		CL,1			; CLに1を足す
+		CMP		CL,18			; CLと18を比較
+		JBE		readloop		; CL <= 18 だったらreadloopへ
+
+~~~
+
+**JBE** *jump if below or equal* 小于等于跳转
