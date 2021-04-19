@@ -54,13 +54,13 @@ entry:
 
 		MOV		SI,0			; 失敗回数を数えるレジスタ
 retry:
-		MOV		AH,0x02			; AH=0x02 : ディスク読み込み
-		MOV		AL,1			; 1セクタ
+		MOV		AH,0x02			; AH=0x02 : 读入磁盘
+		MOV		AL,1			; 1个扇区
 		MOV		BX,0
-		MOV		DL,0x00			; Aドライブ
-		INT		0x13			; ディスクBIOS呼び出し
-		JNC		fin				; エラーがおきなければfinへ
-		ADD		SI,1			; SIに1を足す
+		MOV		DL,0x00			; A驱动器
+		INT		0x13			; 调用磁盘BIOS
+		JNC		fin				; 没出错的话跳转到fin
+		ADD		SI,1			; 出错的话：SIに1を足す
 		CMP		SI,5			; SIと5を比較
 		JAE		error			; SI >= 5 だったらerrorへ
 		MOV		AH,0x00
@@ -106,3 +106,16 @@ next:
 ~~~
 
 **JBE** *jump if below or equal* 小于等于跳转
+
+~~~
+		MOV		AX,ES			
+		ADD		AX,0x0020        ; アドレスを0x200進める
+		MOV		ES,AX			; ADD ES,0x020 という命令がないのでこうしている
+~~~
+
+  *没有 ADD ES， 0x0020 指令*
+
+**一个扇区一个扇区的读盘** 
+
+C0-H0-S1  Cylinder Head Segment  CH DH CL
+
