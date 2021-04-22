@@ -36,11 +36,11 @@ entry:
 
 ; ディスクを読む
 
-		MOV		AX,0x0820
-		MOV		ES,AX
-		MOV		CH,0			; シリンダ0
-		MOV		DH,0			; ヘッド0
-		MOV		CL,2			; セクタ2
+		MOV		AX,0x0820		;AX = 0x0820
+		MOV		ES,AX			;ES = AX
+		MOV		CH,0			; シリンダ0 柱面 0
+		MOV		DH,0			; ヘッド0   磁? 0
+		MOV		CL,2			; セクタ2   扇区 2
 readloop:
 		MOV		SI,0			; 失敗回数を数えるレジスタ
 retry:
