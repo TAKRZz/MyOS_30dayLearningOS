@@ -24,7 +24,7 @@ SI —— source index	源编制寄存器
 
 DI —— destination index 目的变址寄存器
 
-*以上均为16为寄存器*  **X** 表示 extend，以前是8位，现在扩展为16位
+*以上均为16位寄存器*  **X** 表示 extend，以前是8位，现在扩展为16位
 
 AL —— accumulator low 累加寄存器低位
 
@@ -44,7 +44,7 @@ BH —— base high			基址寄存器高位
 
 *以上均为8位寄存器* ， AX = AL + AH， 即前8位后8位， CPU只能存储16字节  8 * 16
 
-Extend EAX ECX EDX EBX ESP EBP ESI EDI 32位寄存器
+Extend **EAX ECX EDX EBX ESP EBP ESI EDI** 32位寄存器
 
 **段寄存器**
 
