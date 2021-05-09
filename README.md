@@ -1,2 +1,6 @@
 # MyOS_30dayLearningOS
- for_study TAKR_Zz
+
+## FOR STUDY
+
+## WHU_TAKR_Zz
+
