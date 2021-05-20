@@ -392,10 +392,13 @@ void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1)
 		by0 = vy0 - sht->vy0;
 		bx1 = vx1 - sht->vx0;
 		by1 = vy1 - sht->vy0;
-		if (bx0 < 0) { bx0 = 0; }
+        // 小于0说明窗口的起点都在要更新的范围里边
+		if (bx0 < 0) { bx0 = 0; } 
 		if (by0 < 0) { by0 = 0; }
+        // 大于size说明窗口的右下角都在更新的范围中
 		if (bx1 > sht->bxsize) { bx1 = sht->bxsize; }
 		if (by1 > sht->bysize) { by1 = sht->bysize; }
+        // 两个for循环使用了相对位置 在循环体中再将窗口的初始地址加上
 		for (by = by0; by < by1; by++) {
 			vy = sht->vy0 + by;
 			for (bx = bx0; bx < bx1; bx++) {
@@ -412,6 +415,8 @@ void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1)
 ```
 
 将从 0 ~ bxsize 之间循环，变成了 bx0 ~ bx1 之间循环。
+
+![IMG_0236(20210515-173943)](day10study.assets/IMG_0236(20210515-173943).PNG)
 
 ![IMG_0237(20210515-174009)](day10study.assets/IMG_0237(20210515-174009).PNG)
 
